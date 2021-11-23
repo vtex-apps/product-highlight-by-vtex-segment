@@ -1,0 +1,1 @@
+1- Add "quantity-on-cart" on "product-summary.shelf" and at pdp

@@ -1,0 +1,19 @@
+name: Automatic app review
+on: [pull_request]
+jobs:
+  SonarScanner:
+    runs-on: ubuntu-latest
+    name: Sonar scanner
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        run: yarn install --production=false
+      - name: Sonar Scanner
+        uses: vtex/action-sonarqube@main
+        with:
+          host: ${{ secrets.SQHost }}
+          token: ${{ secrets.SQToken }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}

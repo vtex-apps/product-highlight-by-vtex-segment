@@ -1,0 +1,26 @@
+{
+  "vendor": "vtexarg",
+  "name": "quantity-on-cart",
+  "version": "2.2.6",
+  "title": "QuantityOnCart",
+  "description": "QuantityOnCart component",
+  "builders": {
+    "messages": "1.x",
+    "store": "0.x",
+    "react": "3.x"
+  },
+  "billingOptions": {
+    "support": {
+      "url": "https://support.vtex.com/hc/requests"
+    },
+    "type": "free",
+    "availableCountries": ["*"]
+  },
+  "dependencies": {
+    "vtex.css-handles": "0.x",
+    "vtex.product-context": "0.x",
+    "vtex.store-graphql": "2.x",
+    "vtex.render-runtime": "0.x"
+  },
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}

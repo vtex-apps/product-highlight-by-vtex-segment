@@ -1,0 +1,13 @@
+{
+  "name": "Quantity On Cart",
+  "headline": "Veja a quantidade de produtos adicionados ao carrinho.",
+  "overview": "Com o Quantity On Cart, é possível apresentar o número de produtos adicionados ao carrinho na mesma página, criando uma experiência dinâmica e contínua para seus usuários. \\n Facilite a experiência de seus clientes, eliminando os cliques desnecessários em carrinhos para descobrir quantos produtos foram adicionados.",
+  "features": [
+    "Exibição do número de produtos adicionados ao carrinho",
+    "Integração com a contagem presente no carrinho de produtos"
+  ],
+  "websiteURL": "https://vtex.com/",
+  "support": {
+    "url": "https://support.vtex.com/hc/requests"
+  }
+}

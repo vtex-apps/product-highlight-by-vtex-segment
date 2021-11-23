@@ -1,0 +1,13 @@
+{
+  "name": "Quantity On Cart",
+  "headline": "Ve la cantidad de productos agregados al carrito.",
+  "overview": "Con Quantity On Cart, sus usuarios ahora pueden ver la cantidad de productos que han agregado a su carrito directamente, creando una experiencia más fluida y dinámica para los compradores. \\n Facilite la experiencia de compra de sus clientes eliminando la molestia de hacer clic en minicarts o saliendo para averiguar cuántos productos se han agregado.",
+  "features": [
+    "Visualización en la misma página de los productos agregados al carrito",
+    "Integración con minicart para conteo en vivo"
+  ],
+  "websiteURL": "https://vtex.com/",
+  "support": {
+    "url": "https://support.vtex.com/hc/requests"
+  }
+}
