@@ -1,9 +1,9 @@
 {
   "vendor": "vtexarg",
-  "name": "quantity-on-cart",
-  "version": "2.2.6",
-  "title": "QuantityOnCart",
-  "description": "QuantityOnCart component",
+  "name": "product-highlight-by-vtex-segment",
+  "version": "0.0.1",
+  "title": "Product Highlight by Vtex Segment",
+  "description": "A component that gives a highlights solution for WL Architecture for the new law Ley de Gondolas",
   "builders": {
     "messages": "1.x",
     "store": "0.x",
@@ -14,13 +14,13 @@
       "url": "https://support.vtex.com/hc/requests"
     },
     "type": "free",
-    "availableCountries": ["*"]
+    "availableCountries": [
+      "*"
+    ]
   },
   "dependencies": {
     "vtex.css-handles": "0.x",
-    "vtex.product-context": "0.x",
-    "vtex.store-graphql": "2.x",
-    "vtex.render-runtime": "0.x"
+    "vtex.product-context": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
