@@ -20,7 +20,30 @@
   },
   "dependencies": {
     "vtex.css-handles": "0.x",
-    "vtex.product-context": "0.x"
+    "vtex.product-context": "0.x",
+    "vtex.render-runtime": "8.x",
+    "vtex.apps-graphql": "3.x"
+  },
+  "settingsSchema": {
+    "title": "ProductHighlight",
+    "type": "object",
+    "properties": {
+      "defaultSellerId": {
+        "title": "Default Seller Id",
+        "type": "string",
+        "description": "Enter the default seller id. For example: jumboargentinav692lanus692"
+      },
+      "defaultNameCollection": {
+        "title": "Default Collection Name",
+        "type": "string",
+        "description": "Enter the default name of the collection. For example: leyDeGondolas"
+      },
+      "imageUrlOfHighlight": {
+        "title": "Image Url of Highlight",
+        "type": "string",
+        "description": "Enter the url of the image that you want to show like Highlight."
+      }
+    }
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
