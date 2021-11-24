@@ -1,12 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useProduct } from 'vtex.product-context'
 import { useCssHandles } from 'vtex.css-handles'
 import atob from 'atob'
+import { useQuery } from 'react-apollo'
+
 import appSettings from './graphql/appSettings.gql'
-import {useQuery } from 'react-apollo'
+import type { Collection, Runtime, AppInfo } from './typings/global'
+
+declare let window: {
+  __RUNTIME__: Runtime
+}
 
 const ProductHighligh: StorefrontFunctionComponent = () => {
-  const {product} = useProduct()
+  const { product } = useProduct()
 
   if (!product) {
     return null
@@ -21,6 +27,7 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     }
 
     const settings = JSON.parse(dataConfig?.appSettings?.message)
+
     setAppInfo(settings)
   }, [dataConfig])
 
@@ -28,60 +35,62 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
 
   const segmentToken = window?.__RUNTIME__?.segmentToken
   const segmentTokenInfo = JSON.parse(atob(segmentToken))
-  const {regionId} = segmentTokenInfo
+  const { regionId } = segmentTokenInfo
   let sellerIds: string[]
+
   if (regionId) {
     const regionIdInfo = atob(regionId)
+
     sellerIds = regionIdInfo.split('SW#')[1].split(';')
-  }else{
+  } else {
     sellerIds = appInfo?.defaultSellerId ? [appInfo?.defaultSellerId] : []
   }
 
-  const defaultNameCollection = appInfo?.defaultNameCollection ? appInfo?.defaultNameCollection : ''
+  const defaultNameCollection = appInfo?.defaultNameCollection
+    ? appInfo?.defaultNameCollection
+    : ''
 
   const productFromCollection: boolean[] = []
+
   sellerIds?.forEach((seller: string) => {
-    productFromCollection.push(collections.some((collection: Collection) => collection.name === `${seller}-${defaultNameCollection}`))
-  });
+    productFromCollection.push(
+      collections.some(
+        (collection: Collection) =>
+          collection.name === `${seller}-${defaultNameCollection}`
+      )
+    )
+  })
 
-  const imageUrlOfHighlight = appInfo?.imageUrlOfHighlight ? [appInfo?.imageUrlOfHighlight] : ''
+  const imageUrlOfHighlight = appInfo?.imageUrlOfHighlight
+    ? [appInfo?.imageUrlOfHighlight]
+    : ''
 
-  const CSS_HANDLES = ['productHighlightByVtexSegment', 'imageUrlOfHighlight']
+  const CSS_HANDLES = [
+    'productHighlightByVtexSegmentContainer',
+    'imageOfHighlight',
+  ]
+
   const handles = useCssHandles(CSS_HANDLES)
 
-  if (productFromCollection.some(p => p===true)) {
+  if (productFromCollection.some((p) => p === true)) {
     const keyDiv = `${product.productId}-productHighlightByVtexSegment`
+
     return (
       <div
-          key={keyDiv}
-          id={keyDiv}
-          className={`${handles.productHighlightByVtexSegment} t-body mh1 mv2`}
+        key={keyDiv}
+        id={keyDiv}
+        className={`${handles.productHighlightByVtexSegmentContainer} t-body mh1 mv2`}
       >
-        <img className={`${handles.imageUrlOfHighlight}`} src={`${imageUrlOfHighlight}`} alt="imageUrlOfHighlight"/>
+        <img
+          className={`${handles.imageOfHighlight}`}
+          src={`${imageUrlOfHighlight}`}
+          alt="imageUrlOfHighlight"
+        />
       </div>
     )
-  } else {
-    return null
   }
+
+  return null
 }
 
 export default ProductHighligh
-
-interface Runtime {
-  segmentToken: string
-}
-
-declare let window: {
-  __RUNTIME__: Runtime
-}
-
-interface Collection {
-  id: string
-  name: string
-}
-
-interface AppInfo{
-  defaultSellerId: string
-  defaultNameCollection: string
-  imageUrlOfHighlight: string
-}

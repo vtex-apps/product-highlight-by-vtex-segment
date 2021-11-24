@@ -14,8 +14,10 @@
     "target": "es2017",
     "esModuleInterop": true
   },
-  "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"],
-  "typeAcquisition": {
-    "enable": false
-  }
+  "include": [
+    "typings/global.d.ts",
+    "./typings/*.d.ts",
+    "./**/*.tsx",
+    "./**/*.ts"
+  ]
 }
