@@ -56,7 +56,7 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     productFromCollection.push(
       collections.some(
         (collection: Collection) =>
-          collection.name === `${seller}-${defaultNameCollection}`
+          collection.name.trim() === `${seller}-${defaultNameCollection}`
       )
     )
   })
