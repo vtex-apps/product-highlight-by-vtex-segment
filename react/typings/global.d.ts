@@ -1,6 +1,14 @@
-export interface Item {
+export interface Runtime {
+  segmentToken: string
+}
+
+export interface Collection {
   id: string
   name: string
-  productId: string
-  quantity: number
+}
+
+export interface AppInfo {
+  defaultSellerId: string
+  defaultNameCollection: string
+  imageUrlOfHighlight: string
 }

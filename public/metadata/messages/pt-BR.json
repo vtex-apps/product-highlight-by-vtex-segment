@@ -1,10 +1,11 @@
 {
-  "name": "Quantity On Cart",
-  "headline": "Veja a quantidade de produtos adicionados ao carrinho.",
-  "overview": "Com o Quantity On Cart, é possível apresentar o número de produtos adicionados ao carrinho na mesma página, criando uma experiência dinâmica e contínua para seus usuários. \\n Facilite a experiência de seus clientes, eliminando os cliques desnecessários em carrinhos para descobrir quantos produtos foram adicionados.",
+  "name": "Product Highlight by Vtex Segment",
+  "headline": "Veja os destaques de cada Whitelabel Seller!",
+  "overview": "Mostre os destaques com base no regionId incorporado no vtex_segment e nas coleções criadas para cada Whitelabel Seller.",
   "features": [
-    "Exibição do número de produtos adicionados ao carrinho",
-    "Integração com a contagem presente no carrinho de produtos"
+    "Destaques no produto PDP que está em uma coleção",
+    "Destaques em produto PLP que está em coleção",
+    "Arquitetura Whitelabel Seller"
   ],
   "websiteURL": "https://vtex.com/",
   "support": {

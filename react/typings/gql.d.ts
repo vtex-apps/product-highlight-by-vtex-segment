@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-
 declare module '*.gql' {
   import type { DocumentNode } from 'graphql'
 

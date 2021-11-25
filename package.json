@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@vtex/api": "^6.45.0",
-    "@vtex/clients": "^2.13.0"
+    "@vtex/clients": "^2.13.0",
+    "atob": "^2.1.2"
   }
 }
-
