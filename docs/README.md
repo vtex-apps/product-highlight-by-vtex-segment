@@ -23,7 +23,7 @@ Show highlights based on the `regionId` embedded in the `vtex_segment` and `coll
   "vtexarg.product-highlight-by-vtex-segment": "0.x"
 }
 ```
-4. Add the `product-highlight-by-vtex-segment` to other theme block using the product context, such as the `product-summary.shelf`. In the example below, the `quantity-on-cart` is added to the `flex-layout.col#right-col` block from the `flex-layout.row#product-main` block from the `store.product` template (which uses the product context):
+4. Add the `product-highlight-by-vtex-segment` to other theme block using the product context, such as the `store.product`. In the example below, the `product-highlight-by-vtex-segment` is added to the `flex-layout.col#right-col` block from the `flex-layout.row#product-main` block from the `store.product` template (which uses the product context):
 
 ```json
   "store.product": {
@@ -31,7 +31,7 @@ Show highlights based on the `regionId` embedded in the `vtex_segment` and `coll
       "flex-layout.row#product-main",
     ]
   },
-  "flex-layout.row#product": {
+  "flex-layout.row#product-main": {
     "children": [
       "flex-layout.col#right-col"
     ]
