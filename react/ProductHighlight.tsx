@@ -30,11 +30,13 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     }
 
     const settings = JSON.parse(dataConfig?.appSettings?.message)
+
     console.log('settings', settings)
     setAppInfo(settings)
   }, [dataConfig])
 
   const collections: Collection[] = product.productClusters
+
   console.log('collections', collections)
 
   const segmentToken = window?.__RUNTIME__?.segmentToken
@@ -65,10 +67,13 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
       )
     )
   })
+  console.log('appInfo', appInfo)
 
   const imageUrlOfHighlight = appInfo?.imageUrlOfHighlight
     ? [appInfo?.imageUrlOfHighlight]
     : ''
+
+  console.log('imageUrlOfHighlight', imageUrlOfHighlight)
 
   const CSS_HANDLES = [
     'productHighlightByVtexSegmentContainer',
@@ -79,6 +84,8 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
 
   if (productFromCollection.some((p) => p === true)) {
     const keyDiv = `${product.productId}-productHighlightByVtexSegment`
+
+    console.log('product.productId', product.productId)
 
     return (
       <div
