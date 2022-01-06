@@ -18,7 +18,10 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     return null
   }
 
-  const { data: dataConfig } = useQuery(appSettings)
+  const { data: dataConfig } = useQuery(appSettings, {
+    ssr: false,
+  })
+
   const [appInfo, setAppInfo] = useState<AppInfo>()
 
   useEffect(() => {
@@ -27,11 +30,12 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     }
 
     const settings = JSON.parse(dataConfig?.appSettings?.message)
-
+    console.log('settings', settings)
     setAppInfo(settings)
   }, [dataConfig])
 
   const collections: Collection[] = product.productClusters
+  console.log('collections', collections)
 
   const segmentToken = window?.__RUNTIME__?.segmentToken
   const segmentTokenInfo = JSON.parse(atob(segmentToken))
@@ -42,6 +46,7 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     const regionIdInfo = atob(regionId)
 
     sellerIds = regionIdInfo.split('SW#')[1].split(';')
+    console.log('sellerIds', sellerIds)
   } else {
     sellerIds = appInfo?.defaultSellerId ? [appInfo?.defaultSellerId] : []
   }
