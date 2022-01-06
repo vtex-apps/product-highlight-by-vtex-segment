@@ -33,7 +33,7 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
 
     console.log('settings', settings)
     setAppInfo(settings)
-  }, [dataConfig])
+  }, [])
 
   const collections: Collection[] = product.productClusters
 
