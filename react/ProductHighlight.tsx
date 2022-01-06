@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useProduct } from 'vtex.product-context'
 import { useCssHandles } from 'vtex.css-handles'
 import atob from 'atob'
-import { useLazyQuery } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 
-import appSettings from './graphql/appSettings.gql'
+import useAppSettings from './hooks/useAppSettings'
+import appSettings from './graphql/getAppSettings.gql'
 import type { Collection, Runtime, AppInfo } from './typings/global'
 
 declare let window: {
@@ -18,13 +19,17 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     return null
   }
 
-  const [appSettingsQuery, { data: dataConfig }] = useLazyQuery(appSettings, {
+  const { data: dataConfig } = useQuery(appSettings, {
     ssr: false,
   })
 
   const [appInfo, setAppInfo] = useState<AppInfo>()
-  const [imageUrlOfHighlight, setImageUrlOfHighlight] = useState<string>('')
-  /* useEffect(() => {
+  const { appSettings: s2 } = useAppSettings(
+    'vtexarg.product-highlight-by-vtex-segment',
+    '0.x'
+  )
+  console.log('s2', s2)
+  useEffect(() => {
     if (!dataConfig) {
       return
     }
@@ -33,7 +38,7 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
 
     console.log('settings', settings)
     setAppInfo(settings)
-  }, []) */
+  }, [dataConfig])
 
   const collections: Collection[] = product.productClusters
 
@@ -69,6 +74,10 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
   })
   console.log('appInfo', appInfo)
 
+  const imageUrlOfHighlight = appInfo?.imageUrlOfHighlight
+    ? [appInfo?.imageUrlOfHighlight]
+    : ''
+
   console.log('imageUrlOfHighlight', imageUrlOfHighlight)
 
   const CSS_HANDLES = [
@@ -78,55 +87,27 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
 
   const handles = useCssHandles(CSS_HANDLES)
 
-  useEffect(() => {
-    if (!dataConfig) {
-      return
-    }
-
-    const settings = JSON.parse(dataConfig?.appSettings?.message)
-
-    console.log('settings', settings)
-
-    setAppInfo(settings)
-  }, [dataConfig])
-
-  useEffect(() => {
-    if (!appInfo) {
-      return
-    }
-
-    console.log('appInfo', appInfo)
-
-    setImageUrlOfHighlight(
-      appInfo?.imageUrlOfHighlight ? appInfo?.imageUrlOfHighlight : ''
-    )
-  }, [appInfo])
-
   if (productFromCollection.some((p) => p === true)) {
+    const keyDiv = `${product.productId}-productHighlightByVtexSegment`
+
     console.log('product.productId', product.productId)
 
-    appSettingsQuery()
+    return (
+      <div
+        key={keyDiv}
+        id={keyDiv}
+        className={`${handles.productHighlightByVtexSegmentContainer} t-body mh1 mv2`}
+      >
+        <img
+          className={`${handles.imageOfHighlight}`}
+          src={`${imageUrlOfHighlight}`}
+          alt="imageUrlOfHighlight"
+        />
+      </div>
+    )
   }
 
-  const keyDiv = `${product.productId}-productHighlightByVtexSegment`
-
-  return (
-    <>
-      {imageUrlOfHighlight && (
-        <div
-          key={keyDiv}
-          id={keyDiv}
-          className={`${handles.productHighlightByVtexSegmentContainer} t-body mh1 mv2`}
-        >
-          <img
-            className={`${handles.imageOfHighlight}`}
-            src={`${imageUrlOfHighlight}`}
-            alt="imageUrlOfHighlight"
-          />
-        </div>
-      )}
-    </>
-  )
+  return null
 }
 
 export default ProductHighligh

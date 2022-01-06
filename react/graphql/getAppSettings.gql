@@ -1,0 +1,6 @@
+query GetAppSettings($app: String, $version: String) {
+  appSettings(app: $app, version: $version)
+    @context(provider: "vtex.apps-graphql") {
+    message
+  }
+}

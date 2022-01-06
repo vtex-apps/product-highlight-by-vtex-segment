@@ -1,5 +1,0 @@
-query appSettings{
-  appSettings (app:"vtexarg.product-highlight-by-vtex-segment") @context(provider: "vtex.apps-graphql"){
-   message
-  }
-}
