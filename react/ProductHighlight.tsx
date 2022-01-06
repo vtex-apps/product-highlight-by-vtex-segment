@@ -13,6 +13,7 @@ declare let window: {
 }
 
 const ProductHighligh: StorefrontFunctionComponent = () => {
+  console.log('ProductHighligh')
   const { product } = useProduct()
 
   if (!product) {
