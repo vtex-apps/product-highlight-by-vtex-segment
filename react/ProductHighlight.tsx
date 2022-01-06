@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useProduct } from 'vtex.product-context'
 import { useCssHandles } from 'vtex.css-handles'
 import atob from 'atob'
-import { useQuery } from 'react-apollo'
+import { useLazyQuery } from 'react-apollo'
 
 import appSettings from './graphql/appSettings.gql'
 import type { Collection, Runtime, AppInfo } from './typings/global'
@@ -18,13 +18,13 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     return null
   }
 
-  const { data: dataConfig } = useQuery(appSettings, {
+  const [appSettingsQuery, { data: dataConfig }] = useLazyQuery(appSettings, {
     ssr: false,
   })
 
   const [appInfo, setAppInfo] = useState<AppInfo>()
-
-  useEffect(() => {
+  const [imageUrlOfHighlight, setImageUrlOfHighlight] = useState<string>('')
+  /* useEffect(() => {
     if (!dataConfig) {
       return
     }
@@ -33,7 +33,7 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
 
     console.log('settings', settings)
     setAppInfo(settings)
-  }, [])
+  }, []) */
 
   const collections: Collection[] = product.productClusters
 
@@ -69,10 +69,6 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
   })
   console.log('appInfo', appInfo)
 
-  const imageUrlOfHighlight = appInfo?.imageUrlOfHighlight
-    ? [appInfo?.imageUrlOfHighlight]
-    : ''
-
   console.log('imageUrlOfHighlight', imageUrlOfHighlight)
 
   const CSS_HANDLES = [
@@ -82,27 +78,55 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
 
   const handles = useCssHandles(CSS_HANDLES)
 
-  if (productFromCollection.some((p) => p === true)) {
-    const keyDiv = `${product.productId}-productHighlightByVtexSegment`
+  useEffect(() => {
+    if (!dataConfig) {
+      return
+    }
 
+    const settings = JSON.parse(dataConfig?.appSettings?.message)
+
+    console.log('settings', settings)
+
+    setAppInfo(settings)
+  }, [dataConfig])
+
+  useEffect(() => {
+    if (!appInfo) {
+      return
+    }
+
+    console.log('appInfo', appInfo)
+
+    setImageUrlOfHighlight(
+      appInfo?.imageUrlOfHighlight ? appInfo?.imageUrlOfHighlight : ''
+    )
+  }, [appInfo])
+
+  if (productFromCollection.some((p) => p === true)) {
     console.log('product.productId', product.productId)
 
-    return (
-      <div
-        key={keyDiv}
-        id={keyDiv}
-        className={`${handles.productHighlightByVtexSegmentContainer} t-body mh1 mv2`}
-      >
-        <img
-          className={`${handles.imageOfHighlight}`}
-          src={`${imageUrlOfHighlight}`}
-          alt="imageUrlOfHighlight"
-        />
-      </div>
-    )
+    appSettingsQuery()
   }
 
-  return null
+  const keyDiv = `${product.productId}-productHighlightByVtexSegment`
+
+  return (
+    <>
+      {imageUrlOfHighlight && (
+        <div
+          key={keyDiv}
+          id={keyDiv}
+          className={`${handles.productHighlightByVtexSegmentContainer} t-body mh1 mv2`}
+        >
+          <img
+            className={`${handles.imageOfHighlight}`}
+            src={`${imageUrlOfHighlight}`}
+            alt="imageUrlOfHighlight"
+          />
+        </div>
+      )}
+    </>
+  )
 }
 
 export default ProductHighligh
