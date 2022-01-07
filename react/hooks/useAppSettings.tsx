@@ -23,9 +23,18 @@ const useAppSettings = (app: string, version: string) => {
 
   useEffect(() => {
     if (!loading && !error && data) {
+      console.log('data', data)
       const aux = JSON.parse(data.appSettings.message)
 
       setAppSettings(aux)
+    }
+
+    if (error) {
+      console.error('error', error)
+    }
+
+    if (loading) {
+      console.log('loading', loading)
     }
   }, [data, loading, error])
 
