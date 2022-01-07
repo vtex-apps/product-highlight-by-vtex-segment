@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useLazyQuery } from 'react-apollo'
 
-import GetAppSettings from '../graphql/getAppSettings.gql'
+import GetAppSettings from '../graphql/appSettings.gql'
 
-const useAppSettings = (app: string, version: string) => {
+const useAppSettings = () => {
   console.log('useAppSettings')
   const [appSettings, setAppSettings] = useState<any>({})
 
@@ -17,22 +17,13 @@ const useAppSettings = (app: string, version: string) => {
     )
 
     useEffect(() => {
-      if (app && version) {
-        getContent({
-          variables: {
-            app: `${app}`,
-            version: `${version}`,
-          },
-        })
-      }
+      getContent()
     }, [])
 
     useEffect(() => {
       if (!loading && !error && data) {
         console.log('data', data)
-        const aux = JSON.parse(data.appSettings.message)
-
-        setAppSettings(aux)
+        setAppSettings(data.appSettings)
       }
 
       if (error) {

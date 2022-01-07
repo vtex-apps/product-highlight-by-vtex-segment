@@ -18,10 +18,7 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     return null
   }
 
-  const { appSettings: appInfo } = useAppSettings(
-    'vtexarg.product-highlight-by-vtex-segment',
-    '0.x'
-  )
+  const { appSettings: appInfo } = useAppSettings()
 
   console.log('appInfo', appInfo)
 
