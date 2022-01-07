@@ -23,6 +23,8 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     '0.x'
   )
 
+  console.log('appInfo', appInfo)
+
   const collections: Collection[] = product.productClusters
 
   console.log('collections', collections)
@@ -55,7 +57,6 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
       )
     )
   })
-  console.log('appInfo', appInfo)
 
   const imageUrlOfHighlight = appInfo?.imageUrlOfHighlight
     ? [appInfo?.imageUrlOfHighlight]

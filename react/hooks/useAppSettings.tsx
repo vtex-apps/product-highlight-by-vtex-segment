@@ -7,7 +7,7 @@ const useAppSettings = (app: string, version: string) => {
   const [appSettings, setAppSettings] = useState<any>()
   const [getContent, { data, loading, error }] = useLazyQuery(GetAppSettings, {
     notifyOnNetworkStatusChange: true,
-    ssr: false,
+    // ssr: false,
   })
 
   useEffect(() => {
