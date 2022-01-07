@@ -11,7 +11,6 @@ declare let window: {
 }
 
 const ProductHighligh: StorefrontFunctionComponent = () => {
-  console.log('ProductHighligh')
   const { product } = useProduct()
 
   if (!product) {
@@ -20,11 +19,7 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
 
   const { appSettings: appInfo } = useAppSettings()
 
-  console.log('appInfo', appInfo)
-
   const collections: Collection[] = product.productClusters
-
-  console.log('collections', collections)
 
   const segmentToken = window?.__RUNTIME__?.segmentToken
   const segmentTokenInfo = JSON.parse(atob(segmentToken))
@@ -35,7 +30,6 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     const regionIdInfo = atob(regionId)
 
     sellerIds = regionIdInfo.split('SW#')[1].split(';')
-    console.log('sellerIds', sellerIds)
   } else {
     sellerIds = appInfo?.defaultSellerId ? [appInfo?.defaultSellerId] : []
   }
@@ -58,8 +52,6 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
   const imageUrlOfHighlight = appInfo?.imageUrlOfHighlight
     ? [appInfo?.imageUrlOfHighlight]
     : ''
-
-  console.log('imageUrlOfHighlight', imageUrlOfHighlight)
 
   const CSS_HANDLES = [
     'productHighlightByVtexSegmentContainer',
