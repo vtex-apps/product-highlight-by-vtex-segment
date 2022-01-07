@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useProduct } from 'vtex.product-context'
 import { useCssHandles } from 'vtex.css-handles'
 import atob from 'atob'
-import { useQuery } from 'react-apollo'
 
 import useAppSettings from './hooks/useAppSettings'
-import appSettings from './graphql/getAppSettings.gql'
-import type { Collection, Runtime, AppInfo } from './typings/global'
+import type { Collection, Runtime } from './typings/global'
 
 declare let window: {
   __RUNTIME__: Runtime
@@ -20,26 +18,10 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     return null
   }
 
-  const { data: dataConfig } = useQuery(appSettings, {
-    ssr: false,
-  })
-
-  const [appInfo, setAppInfo] = useState<AppInfo>()
-  const { appSettings: s2 } = useAppSettings(
+  const { appSettings: appInfo } = useAppSettings(
     'vtexarg.product-highlight-by-vtex-segment',
     '0.x'
   )
-  console.log('s2', s2)
-  useEffect(() => {
-    if (!dataConfig) {
-      return
-    }
-
-    const settings = JSON.parse(dataConfig?.appSettings?.message)
-
-    console.log('settings', settings)
-    setAppInfo(settings)
-  }, [dataConfig])
 
   const collections: Collection[] = product.productClusters
 
@@ -90,8 +72,6 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
 
   if (productFromCollection.some((p) => p === true)) {
     const keyDiv = `${product.productId}-productHighlightByVtexSegment`
-
-    console.log('product.productId', product.productId)
 
     return (
       <div
