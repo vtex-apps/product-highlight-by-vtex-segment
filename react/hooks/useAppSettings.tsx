@@ -11,8 +11,8 @@ const useAppSettings = (app: string, version: string) => {
     const [getContent, { data, loading, error }] = useLazyQuery(
       GetAppSettings,
       {
-        notifyOnNetworkStatusChange: true,
-        // ssr: false,
+        // notifyOnNetworkStatusChange: true,
+        ssr: false,
       }
     )
 
@@ -36,7 +36,7 @@ const useAppSettings = (app: string, version: string) => {
       }
 
       if (error) {
-        console.error('error', error)
+        console.error('error useEffect', error)
       }
 
       if (loading) {
