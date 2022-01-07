@@ -4,41 +4,53 @@ import { useLazyQuery } from 'react-apollo'
 import GetAppSettings from '../graphql/getAppSettings.gql'
 
 const useAppSettings = (app: string, version: string) => {
-  const [appSettings, setAppSettings] = useState<any>()
-  const [getContent, { data, loading, error }] = useLazyQuery(GetAppSettings, {
-    notifyOnNetworkStatusChange: true,
-    // ssr: false,
-  })
+  console.log('useAppSettings')
+  const [appSettings, setAppSettings] = useState<any>({})
 
-  useEffect(() => {
-    if (app && version) {
-      getContent({
-        variables: {
-          app: `${app}`,
-          version: `${version}`,
-        },
-      })
-    }
-  }, [])
+  try {
+    const [getContent, { data, loading, error }] = useLazyQuery(
+      GetAppSettings,
+      {
+        notifyOnNetworkStatusChange: true,
+        // ssr: false,
+      }
+    )
 
-  useEffect(() => {
-    if (!loading && !error && data) {
-      console.log('data', data)
-      const aux = JSON.parse(data.appSettings.message)
+    useEffect(() => {
+      if (app && version) {
+        getContent({
+          variables: {
+            app: `${app}`,
+            version: `${version}`,
+          },
+        })
+      }
+    }, [])
 
-      setAppSettings(aux)
-    }
+    useEffect(() => {
+      if (!loading && !error && data) {
+        console.log('data', data)
+        const aux = JSON.parse(data.appSettings.message)
 
-    if (error) {
-      console.error('error', error)
-    }
+        setAppSettings(aux)
+      }
 
-    if (loading) {
-      console.log('loading', loading)
-    }
-  }, [data, loading, error])
+      if (error) {
+        console.error('error', error)
+      }
 
-  return { appSettings, loading, error }
+      if (loading) {
+        console.log('loading', loading)
+      }
+    }, [data, loading, error])
+
+    return { appSettings, loading, error }
+  } catch (error) {
+    console.error('error', error)
+    const load = 'load'
+
+    return { appSettings, loading: load, error }
+  }
 }
 
 export default useAppSettings
