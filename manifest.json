@@ -1,13 +1,15 @@
 {
   "vendor": "vtexarg",
   "name": "product-highlight-by-vtex-segment",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "title": "Product Highlight by Vtex Segment",
   "description": "A component that gives a highlights solution for WL Architecture for the new law Ley de Gondolas",
   "builders": {
     "store": "0.x",
     "react": "3.x",
-    "docs": "0.x"
+    "docs": "0.x",
+    "node": "6.x",
+    "graphql": "1.x"
   },
   "billingOptions": {
     "support": {
@@ -21,8 +23,7 @@
   "dependencies": {
     "vtex.css-handles": "0.x",
     "vtex.product-context": "0.x",
-    "vtex.render-runtime": "8.x",
-    "vtex.apps-graphql": "3.x"
+    "vtex.render-runtime": "8.x"
   },
   "settingsSchema": {
     "title": "ProductHighlight",

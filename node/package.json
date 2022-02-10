@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@vtex/api": "6.45.6",
+    "@vtex/clients": "^2.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.0",
+    "@vtex/api": "6.45.6",
+    "typescript": "3.9.7"
+  },
+  "resolutions": {
+    "**/**/minimist": "^0.2.1",
+    "**/**/lodash": "^4.17.17"
+  },
+  "version": "0.4.0"
+}

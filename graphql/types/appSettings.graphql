@@ -1,0 +1,5 @@
+type AppSettingsResponse {
+  defaultSellerId: String
+  defaultNameCollection: String
+  imageUrlOfHighlight: String
+}

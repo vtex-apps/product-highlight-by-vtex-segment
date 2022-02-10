@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useProduct } from 'vtex.product-context'
 import { useCssHandles } from 'vtex.css-handles'
 import atob from 'atob'
-import { useQuery } from 'react-apollo'
 
-import appSettings from './graphql/appSettings.gql'
-import type { Collection, Runtime, AppInfo } from './typings/global'
+import useAppSettings from './hooks/useAppSettings'
+import type { Collection, Runtime } from './typings/global'
 
 declare let window: {
   __RUNTIME__: Runtime
@@ -18,18 +17,7 @@ const ProductHighligh: StorefrontFunctionComponent = () => {
     return null
   }
 
-  const { data: dataConfig } = useQuery(appSettings)
-  const [appInfo, setAppInfo] = useState<AppInfo>()
-
-  useEffect(() => {
-    if (!dataConfig) {
-      return
-    }
-
-    const settings = JSON.parse(dataConfig?.appSettings?.message)
-
-    setAppInfo(settings)
-  }, [dataConfig])
+  const { appSettings: appInfo } = useAppSettings()
 
   const collections: Collection[] = product.productClusters
 
