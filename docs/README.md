@@ -1,6 +1,6 @@
-📢 Use this project, [contribute](https://github.com/vtex-apps/product-highlight-by-vtex-segment) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+> 📢 Use this project, [contribute](https://github.com/vtex-apps/product-highlight-by-vtex-segment) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
-# Product Highlight by Vtex Segment
+# Product Highlight by VTEX Segment
 
 <!-- DOCS-IGNORE:start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -8,76 +8,91 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-Show highlights based on the `regionId` embedded in the `vtex_segment` and `collections` created for each Whitelabel Seller.
+The **Product Highlight by VTEX Segment** app allows shoppers to select a Whitelabel Seller available in their region, and it filters the product listing results accordingly. The app also uses a badge to highlight products of Whitelabel Sellers that are available in the shopper's region.
 
 ![Media Placeholder](https://user-images.githubusercontent.com/55905671/143295939-7d1b5625-5c57-46ad-a197-ef959db268de.gif)
 
 ---
+
+## Before you start
+
+Before configuring the **Product Highlight by VTEX Segment** app, make sure to create a collection for each Whitelabel Seller of your store (*See [Creating Collections Beta](https://help.vtex.com/en/tutorial/creating-collections-beta) for more information).* When naming your collection, make sure to use the following naming structure: `{sellerId}-{defaultCollectionName}`, where the `{sellerId}` is the `sellerId` of the Whitelabel Seller and `{defaultCollectionName}` is the name of the Collection.
+
+![Colection Name](https://user-images.githubusercontent.com/55905671/143301880-ee440d48-eced-4750-9cd2-ae3f3588a8e4.png)
+
+---
+
 ## Configuration 
 
-1. Using your terminal and the [VTEX IO Toolbelt](https://vtex.io/docs/recipes/development/vtex-io-cli-installment-and-command-reference), log into the desired VTEX account.
-2. Run `vtex install vtexarg.product-highlight-by-vtex-segment` on the account you're working on.
-3. Add the app as a theme peerDependency in the `manifest.json` file;
-```json
-"peerDependencies": {
-  "vtexarg.product-highlight-by-vtex-segment": "0.x"
-}
-```
-4. Add the `product-highlight-by-vtex-segment` to other theme block using the product context, such as the `store.product`. In the example below, the `product-highlight-by-vtex-segment` is added to the `flex-layout.col#right-col` block from the `flex-layout.row#product-main` block from the `store.product` template (which uses the product context):
+To configure the **Product Highlight by VTEX Segment** app, you'll need to:
+1. Set up the default configurations of the **Product Highlight by VTEX Segment** app via the VTEX Admin.
+2. Add the **Product Highlight by VTEX Segment** to the store theme.
 
-```json
-  "store.product": {
-    "children": [
-      "flex-layout.row#product-main",
-    ]
-  },
-  "flex-layout.row#product-main": {
-    "children": [
-      "flex-layout.col#right-col"
-    ]
-  },
-  "flex-layout.col#right-col": {
-    "children": [
-      "product-highlight-by-vtex-segment"
-    ]
-  }
-```
+By the end of these steps, you'll have your store products highlighted according to the Whitelabel Seller selected.
 
----
-### App Setup
+## Setting up the Product Highlights app
 
-1. Go to the setup of the `Product Highlight by Vtex Segment` component in <https://{workspace}--{account}.myvtex.com/admin/apps/vtexarg.product-highlight-by-vtex-segment@{version}/setup>
-![Media Placeholder](https://user-images.githubusercontent.com/55905671/143299640-21b00a57-64bc-467c-917b-34a16d44bc51.png)
+1. Open the terminal and log in to the desired VTEX account using the [VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
+2. Install the `vtexarg.product-highlight-by-vtex-segment` app on your account.
+   ```sh
+   vtex install vtexarg.product-highlight-by-vtex-segment
+   ```
+3. Open the VTEX Admin.
+4. Go to **Account Settings > Apps > My apps**.
+5. Look for the **Product Highlight by VTEX Segment** app and click on **Settings**.
 
-2. You will need to add the `Default Seller Id` that you want to use in the case that the `regionId` embedded is `null`. For example: `jumboargentinav692lanus692`.
+   ![Product Highlight by VTEX Segment](https://user-images.githubusercontent.com/55905671/143299640-21b00a57-64bc-467c-917b-34a16d44bc51.png)
 
-3. You will need to add the `Default Collection Name` that will be used to find the product belonging to the `collection`. For example: `leyDeGondolas`. 
+6. Fill in the presented fields as in the following:
+   - **Default Seller Id** - Enter the default seller ID to use in cases the shopper's region is not detected (e.g., `jumboargentinav692lanus692`).
+   - **Default Collection Name** - Enter the name of the collection corresponding to the default seller ID (e.g., `leyDeGondolas`). This is the `{defaultCollectionName}` part of the **Collection Name** (*See [Before you start](#before-you-start) for more information*).
+   - **Image Url of Highlight** - Enter the URL of the ximage badge that will highlight the products. For example: ![Image Url of Highlight](https://user-images.githubusercontent.com/60782333/152064990-8990c5a7-3549-49c9-91b0-3bc3ad7604fb.png)
+7. Click on **Save**.
 
-4. You will need to add the `Image Url of Highlight` that will be used as url of the image that you want to show like Highlight.
+### Adding the Product Highlights component to your store theme
 
----
-### Create Collections
+1. Open your store theme in any code editor of your choice.
+2. Open the `manifest.json` file and add the `vtexarg.product-highlight-by-vtex-segment` app as a peer dependency of your theme:
+    ```diff
+    "peerDependencies": {
+       ...
+    +  "vtexarg.product-highlight-by-vtex-segment": "0.x"
+       ...
+    }
+    ```
+3. Add the `product-highlight-by-vtex-segment` block to any child of the `store.product` template (Product Details Page template). For example:
 
-To use correctly the component, you need to create a collection for each Whitelabel Seller.
+    ```diff
+    "store.product": {
+        "children": [
+        "flex-layout.row#product-main",
+        ]
+    },
+    "flex-layout.row#product-main": {
+        "children": [
+        "flex-layout.col#right-col"
+        ]
+    },
+    "flex-layout.col#right-col": {
+        "children": [
+    +     "product-highlight-by-vtex-segment"
+        ]
+    }
+    ```
 
-1. Create collection with the name like: `{sellerId}-{defaultCollectionName}`. Where the `{sellerId}` is the `sellerId` of the Whitelabel Seller and the `{defaultCollectionName}` is the `Default Collection Name` that you ingress on the setup. For examole: `jumboargentinav692lanus692-leyDeGondolas`.
-![Media Placeholder](https://user-images.githubusercontent.com/55905671/143301880-ee440d48-eced-4750-9cd2-ae3f3588a8e4.png)
+Now, see the [Customization](#customization) section to add custom styles to your component.
 
-2. Add the products that you want to each collection.
-![Media Placeholder](https://user-images.githubusercontent.com/55905671/143302007-843220e6-4138-4e9e-932a-33cda0619357.png)
+After [linking your store theme app](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-linking-an-app) in a development workspace, you'll be able to select a Whitelabel Seller available in your region from a dropdown menu list. 
 
----
-### Modus Operandi
+![Select Whitelabel Seller](https://user-images.githubusercontent.com/55905671/143302341-6ba9d940-185f-4c9a-98c5-cb158f285d03.png)
 
-1. Regionalizate in some `Whitelabel Seller`.
-![Media Placeholder](https://user-images.githubusercontent.com/55905671/143302341-6ba9d940-185f-4c9a-98c5-cb158f285d03.png)
+You'll then be able to see the chosen badge in the product cards of the selected Whitelabel Seller's collection.
 
-2. See in the products that belongs to the collection that correspond to the `Whitelabel Seller` that you recently regionalizated, a highlight that is an image with the url of the `Image Url of Highlight`.
-![Media Placeholder](https://user-images.githubusercontent.com/55905671/143302850-e8d39857-ffb6-49fc-b1cf-a7496733ac4c.png)
----
+![Image Url of Highlight](https://user-images.githubusercontent.com/55905671/143302850-e8d39857-ffb6-49fc-b1cf-a7496733ac4c.png)
+
 ## Customization
 
-In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
+To apply CSS customizations in this and other blocks, follow the [Using CSS Handles for store customization](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-using-css-handles-for-store-customization) guide.
 
 | CSS Handles |
 | ----------- | 
