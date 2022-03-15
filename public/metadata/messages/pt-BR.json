@@ -1,10 +1,10 @@
 {
   "name": "Product Highlight by Vtex Segment",
   "headline": "Veja os destaques de cada Whitelabel Seller!",
-  "overview": "Mostre os destaques com base no regionId incorporado no vtex_segment e nas coleções criadas para cada Whitelabel Seller.",
+  "overview": "O aplicativo Product Highlight na arquitetura Whitelabel permite, dependendo da região e das coleções criadas para cada vendedor, mostrar um Highlight em cada produto da coleção.",
   "features": [
-    "Destaques no produto PDP que está em uma coleção",
-    "Destaques em produto PLP que está em coleção",
+    "Destaques na Página do Produto (PDP) para cada produto em uma coleção",
+    "Destaques na Página de Listagem de Produtos (PLP) para cada produto em uma coleção",
     "Arquitetura Whitelabel Seller"
   ],
   "websiteURL": "https://vtex.com/",
